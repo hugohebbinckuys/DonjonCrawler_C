@@ -1,0 +1,72 @@
+
+void creer_couloir (couloir *c, abcisse x, ordonne y){
+    // init du couloir 
+    c->epaisseur = 1; // epaisseur par défaut = 1; 
+    c->instructions_direction = malloc(sizeof(char)); //  * je sais pas prcq on sait pas ce sera un tableau de combien d'elements);
+    c->nombre_cases_deplacement = malloc(sizeof(int)); //  * je sais pas prcq on sait pas ce sera un tableau de combien d'elements);
+    c->x = x; 
+    c->y = y;
+    printf("coordonnees d'arrivee\n");
+    scanf("%d", &c->destination_x);
+    scanf("%d", &c->destination_y);
+
+    
+    int i = 0;
+    while (i=0){
+        printf("si vous voulez changer l'épaisseur de votre mur, tapez le nombre d'épaisseur en plus (un mur ne peut pas etre plus epais que 4 bloc d'epaisseur(murs du couloir non inclus)), ou en moins(ne peut pas être inferieur a zero), sinon tapez 0\n");
+        int ajout = 0; 
+        scanf("%d", &ajout);
+        if ((c->epaisseur + ajout) >0 || (c->epaisseur +ajout)<=4){
+            c->epaisseur += ajout;
+            i+=1; // pour stopper le while; 
+        }
+        else {
+            printf ("epaisseur impossible\n");
+        }
+    }
+
+    int stop = 0; //init de l'element qui nous servira de marqueur d'arret de boucle; 
+    // while (stop = 0){ // tant que marqueur de boucle est pas différents de 0 on continue la boucle; 
+    int indice_conteneurs_trajet = 0; // init des indices de nombre_cases_deplacement et de instructions_directions; 
+    int avancer;
+    char direction;
+    while (stop != 10){ // la c un test pour avoir des iterations mais en vrai c le while d'au-dessus
+        printf ("de combien de case voulez-vous avancer ?\n");
+        scanf("%d", &avancer);
+        c->nombre_cases_deplacement[indice_conteneurs_trajet] = avancer; // on met le nombre de "pas" qu'on fait (en fonction du scanf) dans le tab leau qui stocke tous les nombres de pas qu'on fait pour créer le couloir (qu'on liera aux instructions (NORD SUD EST ou OUEST) qu'on va scanf juste après la); On aura donc dans la structure couloir aux mêmes indices mais dans deux tableaux différents les bonnes instructions liées au bout nombre de pas à faire; Ce qui nous permettra ensuite pour le supprimer en cas de besoin, de refaire le trajet exact, à partir des coordonnées du couloir et du trajet qu'il faut faire pour le réaliser-> 
+        printf ("dans quelle directions ? (N / S / E / O) \n"); 
+        scanf(" %s", direction);
+        c->instructions_direction[indice_conteneurs_trajet] = direction; // donc la pareil on met l'instruction numéro[indice_conteneurs_trajet] pour la lier au nombre de pas qu'on fait; 
+        indice_conteneurs_trajet ++; // on incrément l'indice pour qu'à l'itération suivante on ajoute dans les tableaux les donnéees des nouveaux pas qu'on va faire; 
+        // stop=1; 
+        stop ++; 
+        
+        // if (fonction_calcul_les_deplacements_restant = detecte_trajet_est_fini){ // la tu m'as dit que t'avais fait une fonction pour calculer le nombre de pas qu'il reste a faire en fonctions des directions pour arriver a une autre porte, donc en fonction de ca si tous les pas sont réalisés on met alors le marqueur d'arret de la boucle à 1 ce qui arretra directement la boucle; 
+        //     stop = 1; 
+        // }else continue; // sinon on commence une nouvelle itération; 
+    } 
+    // d->stockage_c->tab_stockage[d->stockage_c->nb_element] = &c; // enfin, on ajoute le couloir au stockage de couloir du donjon
+    // d->stockage_c->nb_element += 1; // et on incrémente le nombre d'elements du tableau qui contient les couloirs
+    // a mettre dans autre fonction  
+} 
+
+
+// ensuite pour afficher les couloirs il faudra printf des # aux coordonnées juste au dessus et juste en dessous de la case ou juste a gauche et juste a droite de la case, etant donné qu'on a ses coordonnées et le nombre de deplacements et les directions en fonction du nb de deplacements; 
+
+void afficher_couloir (int x, int y, couloir *c, donjon *d){
+    for (int i =0; i<d->hauteur_dj; i++) {
+        if (i == x-1) {
+            for (int j = 0; j< d->largeur_dj; j++){
+                if (j == y-1){
+                    printf("#");
+                }       
+            }
+        }  if (i == x+1) {
+            for (int j = 0; j< d->largeur_dj; j++){
+                if (j == y+1){
+                    printf("#");
+                }       
+            }
+        }
+    }
+}

@@ -1,0 +1,9 @@
+donjon = grille avec un element au maximum 
+
+
+
+
+questions : 
+
+    - est ce que un donjon fixe = notre jeu ou alors a chaque partie le donjon est différent ? 
+    - 
